@@ -74,7 +74,16 @@ body {
   grid-template-rows: auto 1fr auto;
   /* minmax(0, …) stops long header text widening the page on phones. */
   grid-template-columns: minmax(0, 1fr);
-  height: 100dvh;
+  /* script.js sets --app-height to the visible area so the iOS keyboard
+     shrinks the app instead of scrolling the header off-screen. */
+  height: var(--app-height, 100dvh);
+  overflow: hidden;
+  overscroll-behavior: none;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+html {
   overflow: hidden;
 }
 
@@ -496,6 +505,8 @@ body,
   background: none;
   resize: none;
   font: inherit;
+  /* Under 16px, iOS Safari zooms the page in on focus and stays zoomed. */
+  font-size: 16px;
   color: var(--text);
   line-height: 1.5;
   padding: 7px 0;

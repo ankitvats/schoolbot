@@ -353,6 +353,28 @@ function scrollToBottom() {
   });
 }
 
+// iOS Safari keeps the layout height when the keyboard opens and scrolls the
+// whole page instead. Size the app to the visible area and pin it in place.
+const viewport = window.visualViewport;
+if (viewport) {
+  let lastHeight = 0;
+  const fitViewport = () => {
+    const height = Math.round(viewport.height);
+    if (height !== lastHeight) {
+      const atBottom =
+        thread.scrollHeight - thread.scrollTop - thread.clientHeight < 80;
+      document.documentElement.style.setProperty("--app-height", `${height}px`);
+      lastHeight = height;
+      // Keep the latest message visible above the keyboard.
+      if (atBottom) thread.scrollTop = thread.scrollHeight;
+    }
+    if (window.scrollY !== 0) window.scrollTo(0, 0);
+  };
+  viewport.addEventListener("resize", fitViewport);
+  viewport.addEventListener("scroll", fitViewport);
+  fitViewport();
+}
+
 labelThemeButton();
 renderWelcome();
 userInput.focus();

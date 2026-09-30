@@ -1,0 +1,23 @@
+{
+  "name": "chatbot",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Model-free school assistant chatbot",
+  "main": "server.js",
+  "engines": {
+    "node": ">=18.11"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node test.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "compromise": "^14.17.0",
+    "express": "^5.2.1",
+    "natural": "^8.1.1"
+  }
+}
